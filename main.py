@@ -3,6 +3,8 @@
 from fastapi import FastAPI, UploadFile, File, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,6 +22,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static frontend files
+frontend_path = Path(__file__).parent / "public"
+if frontend_path.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
 
 def generate_plot(df, column_name):
     """Generate histogram or bar chart for a single column"""

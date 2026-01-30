@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import "./App.css";
 
+// API URL - works for both local development and production
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+
 function App() {
   const [file, setFile] = useState(null);
   const [fileContent, setFileContent] = useState(null);
@@ -50,7 +53,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/analyze", {
+      const response = await fetch(`${API_URL}/analyze`, {
         method: "POST",
         body: formData,
       });
@@ -93,7 +96,7 @@ function App() {
       console.log("Value column:", selectedValueCol);
       console.log("File content size:", fileContent.length);
 
-      const response = await fetch("http://127.0.0.1:8000/compare", {
+      const response = await fetch(`${API_URL}/compare`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
