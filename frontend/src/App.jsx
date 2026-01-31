@@ -5,6 +5,7 @@ import "./App.css";
 
 // API URL - works for both local development and production
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+console.log("API_URL loaded:", API_URL);
 
 function App() {
   const [file, setFile] = useState(null);
